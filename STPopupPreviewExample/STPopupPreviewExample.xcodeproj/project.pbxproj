@@ -18,6 +18,8 @@
 		7696480D1CF18E4D002D126E /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7696480C1CF18E4D002D126E /* PreviewViewController.m */; };
 		769648171CF1FDFC002D126E /* ExampleData.json in Resources */ = {isa = PBXBuildFile; fileRef = 769648161CF1FDFC002D126E /* ExampleData.json */; };
 		7696481A1CF20F67002D126E /* ImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 769648191CF20F67002D126E /* ImageLoader.m */; };
+		76BD8ED61CF22D0700A197DF /* STPopup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD8ED31CF22CF000A197DF /* STPopup.framework */; };
+		76BD8ED71CF22D0700A197DF /* STPopup.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD8ED31CF22CF000A197DF /* STPopup.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,27 @@
 			remoteGlobalIDString = 769647B71CF16C80002D126E;
 			remoteInfo = STPopupPreview;
 		};
+		76BD8ED21CF22CF000A197DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 76BD8ECE1CF22CF000A197DF /* STPopup.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 76D822381C1DB5E400FCF988;
+			remoteInfo = STPopup;
+		};
+		76BD8ED41CF22CFA00A197DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 76BD8ECE1CF22CF000A197DF /* STPopup.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 76D822371C1DB5E400FCF988;
+			remoteInfo = STPopup;
+		};
+		76BD8ED81CF22D0700A197DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 76BD8ECE1CF22CF000A197DF /* STPopup.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 76D822371C1DB5E400FCF988;
+			remoteInfo = STPopup;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +74,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				76BD8ED71CF22D0700A197DF /* STPopup.framework in Embed Frameworks */,
 				769647F91CF16D31002D126E /* STPopupPreview.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -75,6 +99,7 @@
 		769648161CF1FDFC002D126E /* ExampleData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExampleData.json; sourceTree = "<group>"; };
 		769648181CF20F67002D126E /* ImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLoader.h; sourceTree = "<group>"; };
 		769648191CF20F67002D126E /* ImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLoader.m; sourceTree = "<group>"; };
+		76BD8ECE1CF22CF000A197DF /* STPopup.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = STPopup.xcodeproj; path = ../STPopup/STPopup.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76BD8ED61CF22D0700A197DF /* STPopup.framework in Frameworks */,
 				769647F81CF16D31002D126E /* STPopupPreview.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,6 +118,7 @@
 		769647CC1CF16D17002D126E = {
 			isa = PBXGroup;
 			children = (
+				76BD8ECE1CF22CF000A197DF /* STPopup.xcodeproj */,
 				769647EF1CF16D1F002D126E /* STPopupPreview.xcodeproj */,
 				769647D71CF16D17002D126E /* STPopupPreviewExample */,
 				769647D61CF16D17002D126E /* Products */,
@@ -143,6 +170,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		76BD8ECF1CF22CF000A197DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				76BD8ED31CF22CF000A197DF /* STPopup.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,8 +193,10 @@
 			buildRules = (
 			);
 			dependencies = (
+				76BD8ED51CF22CFA00A197DF /* PBXTargetDependency */,
 				769647F71CF16D26002D126E /* PBXTargetDependency */,
 				769647FB1CF16D31002D126E /* PBXTargetDependency */,
+				76BD8ED91CF22D0700A197DF /* PBXTargetDependency */,
 			);
 			name = STPopupPreviewExample;
 			productName = STPopupPreviewExample;
@@ -193,6 +230,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 76BD8ECF1CF22CF000A197DF /* Products */;
+					ProjectRef = 76BD8ECE1CF22CF000A197DF /* STPopup.xcodeproj */;
+				},
+				{
 					ProductGroup = 769647F01CF16D1F002D126E /* Products */;
 					ProjectRef = 769647EF1CF16D1F002D126E /* STPopupPreview.xcodeproj */;
 				},
@@ -210,6 +251,13 @@
 			fileType = wrapper.framework;
 			path = STPopupPreview.framework;
 			remoteRef = 769647F41CF16D1F002D126E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		76BD8ED31CF22CF000A197DF /* STPopup.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STPopup.framework;
+			remoteRef = 76BD8ED21CF22CF000A197DF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -253,6 +301,16 @@
 			isa = PBXTargetDependency;
 			name = STPopupPreview;
 			targetProxy = 769647FA1CF16D31002D126E /* PBXContainerItemProxy */;
+		};
+		76BD8ED51CF22CFA00A197DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = STPopup;
+			targetProxy = 76BD8ED41CF22CFA00A197DF /* PBXContainerItemProxy */;
+		};
+		76BD8ED91CF22D0700A197DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = STPopup;
+			targetProxy = 76BD8ED81CF22D0700A197DF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
