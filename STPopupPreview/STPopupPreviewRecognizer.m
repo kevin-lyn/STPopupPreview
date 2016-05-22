@@ -302,6 +302,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             _popupController = [[STPopupController alloc] initWithRootViewController:previewViewController];
             _popupController.containerView.layer.cornerRadius = 10;
             _popupController.transitionStyle = STPopupTransitionStyleFade;
+            _popupController.hidesCloseButton = YES;
             if (NSClassFromString(@"UIVisualEffectView")) {
                 UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
                 _popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
