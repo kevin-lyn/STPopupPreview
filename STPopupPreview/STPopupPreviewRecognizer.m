@@ -155,7 +155,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
     UIView *containerView = [UIView new];
     containerView.layer.cornerRadius = 10;
     containerView.clipsToBounds = YES;
-    containerView.backgroundColor = [UIColor colorWithRed:239/255.f green:240/255.f blue:242/255.f alpha:1];
+    containerView.backgroundColor = [UIColor colorWithRed:249/255.f green:247/255.f blue:249/255.f alpha:1];
     return containerView;
 }
 
@@ -208,12 +208,15 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CGFloat lineWidth = 4;
-    CGFloat width = rect.size.width - lineWidth;
-    CGFloat height = rect.size.height - lineWidth;
+    CGFloat shadowRadius = 2;
+    CGFloat width = rect.size.width - lineWidth - shadowRadius * 2;
+    CGFloat height = rect.size.height - lineWidth - shadowRadius * 2;
     CGFloat x = (rect.size.width - width) / 2;
     CGFloat y = (rect.size.height - height) / 2;
     
     CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetShadowWithColor(context, CGSizeMake(0.0f, 0.0f), shadowRadius, [UIColor colorWithWhite:0 alpha:0.2].CGColor);
+    
     CGContextSetLineWidth(context, lineWidth);
     CGContextSetLineCap(context, kCGLineCapRound);
     CGContextSetLineJoin(context, kCGLineJoinBevel);
@@ -304,7 +307,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             _popupController.transitionStyle = STPopupTransitionStyleFade;
             _popupController.hidesCloseButton = YES;
             if (NSClassFromString(@"UIVisualEffectView")) {
-                UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+                UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
                 _popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
             }
             
@@ -316,8 +319,8 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 
                 NSArray<STPopupPreviewAction *> *actions = [_delegate previewActionsForPopupPreviewRecognizer:self];
                 if (actions.count) {
-                    CGFloat arrowWidth = 28;
-                    CGFloat arrowHeight = 10;
+                    CGFloat arrowWidth = 32;
+                    CGFloat arrowHeight = 14;
                     _arrowView = [[STPopupPreviewArrowView alloc] initWithFrame:CGRectMake((_popupController.backgroundView.frame.size.width - arrowWidth) / 2, _popupController.containerView.frame.origin.y - 25, arrowWidth, arrowHeight)];
                     [_popupController.backgroundView addSubview:_arrowView];
                     _arrowView.alpha = 0;

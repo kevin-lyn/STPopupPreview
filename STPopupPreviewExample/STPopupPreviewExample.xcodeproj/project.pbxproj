@@ -16,6 +16,8 @@
 		769647F81CF16D31002D126E /* STPopupPreview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769647F51CF16D1F002D126E /* STPopupPreview.framework */; };
 		769647F91CF16D31002D126E /* STPopupPreview.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 769647F51CF16D1F002D126E /* STPopupPreview.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7696480D1CF18E4D002D126E /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7696480C1CF18E4D002D126E /* PreviewViewController.m */; };
+		769648171CF1FDFC002D126E /* ExampleData.json in Resources */ = {isa = PBXBuildFile; fileRef = 769648161CF1FDFC002D126E /* ExampleData.json */; };
+		7696481A1CF20F67002D126E /* ImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 769648191CF20F67002D126E /* ImageLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,9 @@
 		769647EF1CF16D1F002D126E /* STPopupPreview.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = STPopupPreview.xcodeproj; path = ../STPopupPreview.xcodeproj; sourceTree = "<group>"; };
 		7696480B1CF18E4D002D126E /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		7696480C1CF18E4D002D126E /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		769648161CF1FDFC002D126E /* ExampleData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExampleData.json; sourceTree = "<group>"; };
+		769648181CF20F67002D126E /* ImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLoader.h; sourceTree = "<group>"; };
+		769648191CF20F67002D126E /* ImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +115,9 @@
 				769647DF1CF16D17002D126E /* ViewController.m */,
 				7696480B1CF18E4D002D126E /* PreviewViewController.h */,
 				7696480C1CF18E4D002D126E /* PreviewViewController.m */,
+				769648181CF20F67002D126E /* ImageLoader.h */,
+				769648191CF20F67002D126E /* ImageLoader.m */,
+				769648161CF1FDFC002D126E /* ExampleData.json */,
 				769647E11CF16D17002D126E /* Main.storyboard */,
 				769647E41CF16D17002D126E /* Assets.xcassets */,
 				769647E61CF16D17002D126E /* LaunchScreen.storyboard */,
@@ -211,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				769648171CF1FDFC002D126E /* ExampleData.json in Resources */,
 				769647E81CF16D17002D126E /* LaunchScreen.storyboard in Resources */,
 				769647E51CF16D17002D126E /* Assets.xcassets in Resources */,
 				769647E31CF16D17002D126E /* Main.storyboard in Resources */,
@@ -225,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				769647E01CF16D17002D126E /* ViewController.m in Sources */,
+				7696481A1CF20F67002D126E /* ImageLoader.m in Sources */,
 				769647DD1CF16D17002D126E /* AppDelegate.m in Sources */,
 				769647DA1CF16D17002D126E /* main.m in Sources */,
 				7696480D1CF18E4D002D126E /* PreviewViewController.m in Sources */,

@@ -10,4 +10,7 @@
 
 @interface PreviewViewController : UIViewController
 
+@property (nonatomic, strong) NSDictionary *data;
+@property (nonatomic, strong) UIImage *placeholderImage;
+
 @end

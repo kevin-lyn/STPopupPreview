@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, STPopupPreviewRecognizerState) {
 
 @interface STPopupPreviewRecognizer : NSObject
 
-@property (nonatomic, weak, readonly) UIView *view;
+@property (nonatomic, weak, readonly) __kindof UIView *view;
 @property (nonatomic, assign, readonly) STPopupPreviewRecognizerState state;
 
 - (instancetype)init NS_UNAVAILABLE;
