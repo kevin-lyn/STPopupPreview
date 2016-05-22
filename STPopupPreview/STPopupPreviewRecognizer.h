@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
 
 @interface STPopupPreviewAction : NSObject
 
-+ (instancetype)actionWithTitle:(NSString *)title style:(STPopupPreviewActionStyle)style handler:(void (^)(STPopupPreviewAction *action))handler;
++ (instancetype)actionWithTitle:(NSString *)title style:(STPopupPreviewActionStyle)style handler:(void (^)(STPopupPreviewAction *action, UIViewController *previewViewController))handler;
 
 @property (nonatomic, strong, readonly) NSString *title;
 @property (nonatomic, assign, readonly) STPopupPreviewActionStyle style;
@@ -28,9 +28,9 @@ typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
 
 @protocol STPopupPreviewRecognizerDelegate <NSObject>
 
-- (STPopupController *)popupControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer;
+- (UIViewController *)previewViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer;
 - (UIViewController *)presentingViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer;
-- (NSArray<STPopupPreviewAction *> *)actionsForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer;
+- (NSArray<STPopupPreviewAction *> *)previewActionsForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer;
 
 @end
 

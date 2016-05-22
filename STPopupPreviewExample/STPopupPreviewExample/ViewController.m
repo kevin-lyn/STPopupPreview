@@ -28,17 +28,10 @@
 
 #pragma mark - STPopupPreviewRecognizerDelegate
 
-- (STPopupController *)popupControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
+- (UIViewController *)previewViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
 {
     PreviewViewController *previewViewController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([PreviewViewController class])];
-    
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:previewViewController];
-    popupController.containerView.layer.cornerRadius = 8;
-    
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    
-    return popupController;
+    return previewViewController;
 }
 
 - (UIViewController *)presentingViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
@@ -46,7 +39,7 @@
     return self;
 }
 
-- (NSArray<STPopupPreviewAction *> *)actionsForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
+- (NSArray<STPopupPreviewAction *> *)previewActionsForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
 {
     return @[ [STPopupPreviewAction actionWithTitle:@"Like" style:STPopupPreviewActionStyleDefault handler:nil],
               [STPopupPreviewAction actionWithTitle:@"Delete" style:STPopupPreviewActionStyleDestructive handler:nil],

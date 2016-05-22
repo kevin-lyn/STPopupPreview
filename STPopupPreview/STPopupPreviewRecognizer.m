@@ -14,15 +14,15 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 
 @interface STPopupPreviewAction ()
 
-@property (nonatomic, copy, readonly) void (^handler)(STPopupPreviewAction *);
+@property (nonatomic, copy, readonly) void (^handler)(STPopupPreviewAction *, UIViewController *);
 
-- (instancetype)initWithTitle:(NSString *)title style:(STPopupPreviewActionStyle)style handler:(void (^)(STPopupPreviewAction *))handler;
+- (instancetype)initWithTitle:(NSString *)title style:(STPopupPreviewActionStyle)style handler:(void (^)(STPopupPreviewAction *, UIViewController *))handler;
 
 @end
 
 @implementation STPopupPreviewAction
 
-- (instancetype)initWithTitle:(NSString *)title style:(STPopupPreviewActionStyle)style handler:(void (^)(STPopupPreviewAction *))handler
+- (instancetype)initWithTitle:(NSString *)title style:(STPopupPreviewActionStyle)style handler:(void (^)(STPopupPreviewAction *, UIViewController *))handler
 {
     if (self = [super init]) {
         _title = title;
@@ -32,16 +32,24 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
     return self;
 }
 
-+ (instancetype)actionWithTitle:(NSString *)title style:(STPopupPreviewActionStyle)style handler:(void (^)(STPopupPreviewAction *))handler
++ (instancetype)actionWithTitle:(NSString *)title style:(STPopupPreviewActionStyle)style handler:(void (^)(STPopupPreviewAction *, UIViewController *))handler;
 {
     return [[STPopupPreviewAction alloc] initWithTitle:title style:style handler:handler];
 }
 
 @end
 
+@class STPopupPreviewActionSheet;
+
+@protocol STPopupPreviewActionSheetDelegate <NSObject>
+
+- (void)popupPreviewActionSheet:(STPopupPreviewActionSheet *)actionSheet didSelectAction:(STPopupPreviewAction *)action;
+
+@end
 
 @interface STPopupPreviewActionSheet : UIView
 
+@property (nonatomic, weak) id<STPopupPreviewActionSheetDelegate> delegate;
 @property (nonatomic, strong, readonly) NSArray<STPopupPreviewAction *> *actions;
 
 - (instancetype)initWithActions:(NSArray<STPopupPreviewAction *> *)actions;
@@ -75,31 +83,18 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
         }
         
         if (topActions.count) {
-            _topContainerView = [UIView new];
-            _topContainerView.layer.cornerRadius = 12;
-            _topContainerView.clipsToBounds = YES;
-            _topContainerView.backgroundColor = [UIColor whiteColor];
+            _topContainerView = [self createContainerView];
             [self addSubview:_topContainerView];
             for (STPopupPreviewAction *action in topActions) {
-                UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-                [button setTitle:action.title forState:UIControlStateNormal];
-                button.titleLabel.font = [UIFont systemFontOfSize:20];
-                if (action.style == STPopupPreviewActionStyleDestructive) {
-                    [button setTitleColor:[UIColor colorWithRed:1 green:0.23 blue:0.19 alpha:1] forState:UIControlStateNormal];
-                }
+                UIButton *button = [self createActionButtonWithAction:action showsSeparator:action != topActions.lastObject];
                 [_topContainerView addSubview:button];
             }
         }
         if (bottomActions.count) {
-            _bottomContainerView = [UIView new];
-            _bottomContainerView.layer.cornerRadius = 12;
-            _bottomContainerView.clipsToBounds = YES;
-            _bottomContainerView.backgroundColor = [UIColor whiteColor];
+            _bottomContainerView = [self createContainerView];
             [self addSubview:_bottomContainerView];
             for (STPopupPreviewAction *action in bottomActions) {
-                UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-                [button setTitle:action.title forState:UIControlStateNormal];
-                button.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+                UIButton *button = [self createActionButtonWithAction:action showsSeparator:action != topActions.lastObject];
                 [_bottomContainerView addSubview:button];
             }
         }
@@ -145,6 +140,51 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
     self.frame = frame;
 }
 
+#pragma mark - Actions
+
+- (void)actionButtonDidTap:(UIButton *)button
+{
+    STPopupPreviewAction *action = self.actions[button.tag];
+    [self.delegate popupPreviewActionSheet:self didSelectAction:action];
+}
+
+#pragma mark - Helpers
+
+- (UIView *)createContainerView
+{
+    UIView *containerView = [UIView new];
+    containerView.layer.cornerRadius = 12;
+    containerView.clipsToBounds = YES;
+    containerView.backgroundColor = [UIColor colorWithRed:239/255.f green:240/255.f blue:242/255.f alpha:1];
+    return containerView;
+}
+
+- (UIButton *)createActionButtonWithAction:(STPopupPreviewAction *)action showsSeparator:(BOOL)showsSeparator
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.tag = [self.actions indexOfObject:action];
+    [button setTitle:action.title forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(actionButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
+    switch (action.style) {
+        case STPopupPreviewActionStyleDestructive:
+            [button setTitleColor:[UIColor colorWithRed:1 green:0.23 blue:0.19 alpha:1] forState:UIControlStateNormal];
+        case STPopupPreviewActionStyleDefault:
+            button.titleLabel.font = [UIFont systemFontOfSize:20];
+            break;
+        case STPopupPreviewActionStyleCancel:
+            button.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+        default:
+            break;
+    }
+    if (showsSeparator) {
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height, button.frame.size.width, 0.5)];
+        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        separatorView.backgroundColor = [UIColor colorWithRed:179/255.f green:180/255.f blue:184/255.f alpha:1];
+        [button addSubview:separatorView];
+    }
+    return button;
+}
+
 @end
 
 @interface STPopupPreviewArrowView : UIView
@@ -187,7 +227,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 
 @end
 
-@interface STPopupPreviewRecognizer ()
+@interface STPopupPreviewRecognizer () <STPopupPreviewActionSheetDelegate>
 
 @property (nonatomic, weak) UIView *view;
 
@@ -224,12 +264,17 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
     [_view addGestureRecognizer:_longPressGesture];
 }
 
-- (void)dismiss
+#pragma mark - Helpers
+
+- (void)dismissWithCompletion:(void(^)())completion
 {
     _state = STPopupPreviewRecognizerStateNone;
     [_popupController.backgroundView removeGestureRecognizer:_panGesture];
     [_popupController.backgroundView removeGestureRecognizer:_tapGesture];
     [_popupController dismissWithCompletion:^{
+        if (completion) {
+            completion();
+        }
         [_arrowView removeFromSuperview];
         _arrowView = nil;
         [_actionSheet removeFromSuperview];
@@ -251,8 +296,16 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 _startPointY = [gesture locationInView:_popupController.backgroundView].y - _popupController.containerView.transform.ty;
                 break;
             }
-            _popupController = [_delegate popupControllerForPopupPreviewRecognizer:self];
+            
+            UIViewController *previewViewController = [_delegate previewViewControllerForPopupPreviewRecognizer:self];
+            
+            _popupController = [[STPopupController alloc] initWithRootViewController:previewViewController];
+            _popupController.containerView.layer.cornerRadius = 12;
             _popupController.transitionStyle = STPopupTransitionStyleFade;
+            if (NSClassFromString(@"UIVisualEffectView")) {
+                UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+                _popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+            }
             
             UIViewController *presentingViewController = [_delegate presentingViewControllerForPopupPreviewRecognizer:self];
             [_popupController presentInViewController:presentingViewController completion:^{
@@ -260,7 +313,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 _state = STPopupPreviewRecognizerStatePreviewing;
                 _startPointY = [gesture locationInView:_popupController.backgroundView].y;
                 
-                NSArray<STPopupPreviewAction *> *actions = [_delegate actionsForPopupPreviewRecognizer:self];
+                NSArray<STPopupPreviewAction *> *actions = [_delegate previewActionsForPopupPreviewRecognizer:self];
                 if (actions.count) {
                     CGFloat arrowWidth = 28;
                     CGFloat arrowHeight = 10;
@@ -272,6 +325,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                     } completion:nil];
                     
                     _actionSheet = [[STPopupPreviewActionSheet alloc] initWithActions:actions];
+                    _actionSheet.delegate = self;
                     [_popupController.backgroundView addSubview:_actionSheet];
                     [_actionSheet sizeToFit];
                     _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height);
@@ -348,7 +402,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 } completion:nil];
             }
             else {
-                [self dismiss];
+                [self dismissWithCompletion:nil];
             }
         }
             break;
@@ -359,7 +413,23 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 
 - (void)containerViewDidTap
 {
-    [self dismiss];
+    [self dismissWithCompletion:nil];
+}
+
+#pragma mark - STPopupPreviewActionSheetDelegate
+
+- (void)popupPreviewActionSheet:(STPopupPreviewActionSheet *)actionSheet didSelectAction:(STPopupPreviewAction *)action
+{
+    [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _popupController.containerView.transform = CGAffineTransformMakeTranslation(0, -_popupController.containerView.frame.size.height - (_popupController.backgroundView.frame.size.height - _popupController.containerView.frame.size.height) / 2);
+        _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self dismissWithCompletion:^{
+            if (action.handler) {
+                action.handler(action, _popupController.topViewController);
+            }
+        }];
+    }];
 }
 
 @end
