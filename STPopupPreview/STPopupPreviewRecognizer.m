@@ -10,7 +10,7 @@
 
 CGFloat const STPopupPreviewActionSheetButtonHeight = 44;
 CGFloat const STPopupPreviewActionSheetSpacing = 10;
-CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
+CGFloat const STPopupPreviewShowActionsOffset = 30;
 
 @interface STPopupPreviewAction ()
 
@@ -147,6 +147,46 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
 
 @end
 
+@interface STPopupPreviewArrowView : UIView
+
+@end
+
+@implementation STPopupPreviewArrowView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        self.opaque = NO;
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGFloat lineWidth = 4;
+    CGFloat width = rect.size.width - lineWidth;
+    CGFloat height = rect.size.height - lineWidth;
+    CGFloat x = (rect.size.width - width) / 2;
+    CGFloat y = (rect.size.height - height) / 2;
+    
+    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetLineWidth(context, lineWidth);
+    CGContextSetLineCap(context, kCGLineCapRound);
+    CGContextSetLineJoin(context, kCGLineJoinBevel);
+    
+    CGContextMoveToPoint(context, x, y + height);
+    CGContextAddLineToPoint(context, x + width / 2, y);
+    CGContextAddLineToPoint(context, x + width, y + height);
+    
+    CGContextStrokePath(context);
+}
+
+@end
+
 @interface STPopupPreviewRecognizer ()
 
 @property (nonatomic, weak) UIView *view;
@@ -158,8 +198,10 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
     __weak id<STPopupPreviewRecognizerDelegate> _delegate;
     UILongPressGestureRecognizer *_longPressGesture;
     UIPanGestureRecognizer *_panGesture;
+    UITapGestureRecognizer *_tapGesture;
     STPopupController *_popupController;
     CGFloat _startPointY;
+    STPopupPreviewArrowView *_arrowView;
     STPopupPreviewActionSheet *_actionSheet;
 }
 
@@ -182,6 +224,22 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
     [_view addGestureRecognizer:_longPressGesture];
 }
 
+- (void)dismiss
+{
+    _state = STPopupPreviewRecognizerStateNone;
+    [_popupController.backgroundView removeGestureRecognizer:_panGesture];
+    [_popupController.backgroundView removeGestureRecognizer:_tapGesture];
+    [_popupController dismissWithCompletion:^{
+        [_arrowView removeFromSuperview];
+        _arrowView = nil;
+        [_actionSheet removeFromSuperview];
+        _actionSheet = nil;
+        _panGesture = nil;
+        _tapGesture = nil;
+        _popupController = nil;
+    }];
+}
+
 #pragma mark - Gestures
 
 - (void)gestureAction:(UIGestureRecognizer *)gesture
@@ -201,8 +259,18 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
                 _popupController.containerView.userInteractionEnabled = NO;
                 _state = STPopupPreviewRecognizerStatePreviewing;
                 _startPointY = [gesture locationInView:_popupController.backgroundView].y;
+                
                 NSArray<STPopupPreviewAction *> *actions = [_delegate actionsForPopupPreviewRecognizer:self];
                 if (actions.count) {
+                    CGFloat arrowWidth = 28;
+                    CGFloat arrowHeight = 10;
+                    _arrowView = [[STPopupPreviewArrowView alloc] initWithFrame:CGRectMake((_popupController.backgroundView.frame.size.width - arrowWidth) / 2, _popupController.containerView.frame.origin.y - 25, arrowWidth, arrowHeight)];
+                    [_popupController.backgroundView addSubview:_arrowView];
+                    _arrowView.alpha = 0;
+                    [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                        _arrowView.alpha = 1;
+                    } completion:nil];
+                    
                     _actionSheet = [[STPopupPreviewActionSheet alloc] initWithActions:actions];
                     [_popupController.backgroundView addSubview:_actionSheet];
                     [_actionSheet sizeToFit];
@@ -211,11 +279,13 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
                 
                 _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(gestureAction:)];
                 [_popupController.backgroundView addGestureRecognizer:_panGesture];
+                _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(containerViewDidTap)];
+                [_popupController.backgroundView addGestureRecognizer:_tapGesture];
             }];
         }
             break;
         case UIGestureRecognizerStateChanged: {
-            if ((_state != STPopupPreviewRecognizerStatePreviewing && _state != STPopupPreviewRecognizerStateViewingActions) ||
+            if ((_state != STPopupPreviewRecognizerStatePreviewing && _state != STPopupPreviewRecognizerStateShowingActions) ||
                 !_actionSheet) {
                 break;
             }
@@ -223,10 +293,15 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
             CGPoint currentPoint = [gesture locationInView:_popupController.backgroundView];
             CGFloat translationY = currentPoint.y - _startPointY;
             _popupController.containerView.transform = CGAffineTransformMakeTranslation(0, translationY);
+            _arrowView.transform = _popupController.containerView.transform;
             
-            if (-translationY >= STPopupPreviewShouldViewActionsOffset) {
+            if (-translationY >= STPopupPreviewShowActionsOffset) { // Start showing action sheet
+                [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    _arrowView.alpha = 0;
+                } completion:nil];
+                
                 CGFloat availableHeight = _popupController.backgroundView.frame.size.height - _popupController.containerView.frame.origin.y - _popupController.containerView.frame.size.height;
-                if (_state != STPopupPreviewRecognizerStateViewingActions) {
+                if (_state != STPopupPreviewRecognizerStateShowingActions) {
                     [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                         if (availableHeight >= _actionSheet.frame.size.height) {
                             _actionSheet.transform = CGAffineTransformIdentity;
@@ -244,10 +319,11 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
                         _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height - availableHeight);
                     }
                 }
-                _state = STPopupPreviewRecognizerStateViewingActions;
+                _state = STPopupPreviewRecognizerStateShowingActions;
             }
-            else {
+            else { // Dismiss action sheet
                 [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    _arrowView.alpha = 1;
                     _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height);
                 } completion:nil];
                 _state = STPopupPreviewRecognizerStatePreviewing;
@@ -257,7 +333,7 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
         case UIGestureRecognizerStateEnded: {
-            if (_state == STPopupPreviewRecognizerStateViewingActions) {
+            if (_state == STPopupPreviewRecognizerStateShowingActions) { // Make sure action sheet is fully showed
                 CGFloat availableHeight = _popupController.backgroundView.frame.size.height - _actionSheet.frame.size.height;
                 CGFloat translationY = availableHeight - _popupController.containerView.frame.size.height - (_popupController.backgroundView.frame.size.height - _popupController.containerView.frame.size.height) / 2;
                 [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -267,24 +343,23 @@ CGFloat const STPopupPreviewShouldViewActionsOffset = 30;
                     else {
                         _popupController.containerView.transform = CGAffineTransformIdentity;
                     }
+                    _arrowView.transform = _popupController.containerView.transform;
                     _actionSheet.transform = CGAffineTransformIdentity;
                 } completion:nil];
             }
             else {
-                _state = STPopupPreviewRecognizerStateNone;
-                [_popupController.backgroundView removeGestureRecognizer:_panGesture];
-                [_popupController dismissWithCompletion:^{
-                    [_actionSheet removeFromSuperview];
-                    _actionSheet = nil;
-                    _panGesture = nil;
-                    _popupController = nil;
-                }];
+                [self dismiss];
             }
         }
             break;
         default:
             break;
     }
+}
+
+- (void)containerViewDidTap
+{
+    [self dismiss];
 }
 
 @end

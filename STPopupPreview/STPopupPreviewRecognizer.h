@@ -37,7 +37,7 @@ typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
 typedef NS_ENUM(NSUInteger, STPopupPreviewRecognizerState) {
     STPopupPreviewRecognizerStateNone,
     STPopupPreviewRecognizerStatePreviewing,
-    STPopupPreviewRecognizerStateViewingActions
+    STPopupPreviewRecognizerStateShowingActions
 };
 
 @interface STPopupPreviewRecognizer : NSObject
