@@ -8,7 +8,7 @@
 
 #import "STPopupPreviewRecognizer.h"
 
-CGFloat const STPopupPreviewActionSheetButtonHeight = 44;
+CGFloat const STPopupPreviewActionSheetButtonHeight = 57;
 CGFloat const STPopupPreviewActionSheetSpacing = 10;
 CGFloat const STPopupPreviewShowActionsOffset = 30;
 
@@ -153,7 +153,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 - (UIView *)createContainerView
 {
     UIView *containerView = [UIView new];
-    containerView.layer.cornerRadius = 12;
+    containerView.layer.cornerRadius = 10;
     containerView.clipsToBounds = YES;
     containerView.backgroundColor = [UIColor colorWithRed:239/255.f green:240/255.f blue:242/255.f alpha:1];
     return containerView;
@@ -300,7 +300,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             UIViewController *previewViewController = [_delegate previewViewControllerForPopupPreviewRecognizer:self];
             
             _popupController = [[STPopupController alloc] initWithRootViewController:previewViewController];
-            _popupController.containerView.layer.cornerRadius = 12;
+            _popupController.containerView.layer.cornerRadius = 10;
             _popupController.transitionStyle = STPopupTransitionStyleFade;
             if (NSClassFromString(@"UIVisualEffectView")) {
                 UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
