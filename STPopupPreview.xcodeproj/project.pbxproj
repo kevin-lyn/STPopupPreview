@@ -8,12 +8,39 @@
 
 /* Begin PBXBuildFile section */
 		769647BC1CF16C80002D126E /* STPopupPreview.h in Headers */ = {isa = PBXBuildFile; fileRef = 769647BB1CF16C80002D126E /* STPopupPreview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		769647CB1CF16CCF002D126E /* STPopup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769647C81CF16CC5002D126E /* STPopup.framework */; };
+		769647FF1CF16F83002D126E /* STPopupPreviewRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 769647FD1CF16F83002D126E /* STPopupPreviewRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		769648001CF16F83002D126E /* STPopupPreviewRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 769647FE1CF16F83002D126E /* STPopupPreviewRecognizer.m */; };
+		769648031CF16FB3002D126E /* UIView+STPopupPreview.h in Headers */ = {isa = PBXBuildFile; fileRef = 769648011CF16FB3002D126E /* UIView+STPopupPreview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		769648041CF16FB3002D126E /* UIView+STPopupPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 769648021CF16FB3002D126E /* UIView+STPopupPreview.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		769647C71CF16CC5002D126E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 769647C31CF16CC4002D126E /* STPopup.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 76D822381C1DB5E400FCF988;
+			remoteInfo = STPopup;
+		};
+		769647C91CF16CCC002D126E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 769647C31CF16CC4002D126E /* STPopup.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 76D822371C1DB5E400FCF988;
+			remoteInfo = STPopup;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		769647B81CF16C80002D126E /* STPopupPreview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STPopupPreview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		769647BB1CF16C80002D126E /* STPopupPreview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STPopupPreview.h; sourceTree = "<group>"; };
 		769647BD1CF16C80002D126E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		769647C31CF16CC4002D126E /* STPopup.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = STPopup.xcodeproj; path = STPopup/STPopup.xcodeproj; sourceTree = "<group>"; };
+		769647FD1CF16F83002D126E /* STPopupPreviewRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupPreviewRecognizer.h; sourceTree = "<group>"; };
+		769647FE1CF16F83002D126E /* STPopupPreviewRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPopupPreviewRecognizer.m; sourceTree = "<group>"; };
+		769648011CF16FB3002D126E /* UIView+STPopupPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+STPopupPreview.h"; sourceTree = "<group>"; };
+		769648021CF16FB3002D126E /* UIView+STPopupPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+STPopupPreview.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				769647CB1CF16CCF002D126E /* STPopup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -30,6 +58,7 @@
 		769647AE1CF16C80002D126E = {
 			isa = PBXGroup;
 			children = (
+				769647C31CF16CC4002D126E /* STPopup.xcodeproj */,
 				769647BA1CF16C80002D126E /* STPopupPreview */,
 				769647B91CF16C80002D126E /* Products */,
 			);
@@ -46,10 +75,22 @@
 		769647BA1CF16C80002D126E /* STPopupPreview */ = {
 			isa = PBXGroup;
 			children = (
-				769647BB1CF16C80002D126E /* STPopupPreview.h */,
 				769647BD1CF16C80002D126E /* Info.plist */,
+				769647BB1CF16C80002D126E /* STPopupPreview.h */,
+				769647FD1CF16F83002D126E /* STPopupPreviewRecognizer.h */,
+				769647FE1CF16F83002D126E /* STPopupPreviewRecognizer.m */,
+				769648011CF16FB3002D126E /* UIView+STPopupPreview.h */,
+				769648021CF16FB3002D126E /* UIView+STPopupPreview.m */,
 			);
 			path = STPopupPreview;
+			sourceTree = "<group>";
+		};
+		769647C41CF16CC4002D126E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				769647C81CF16CC5002D126E /* STPopup.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,6 +100,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				769647FF1CF16F83002D126E /* STPopupPreviewRecognizer.h in Headers */,
+				769648031CF16FB3002D126E /* UIView+STPopupPreview.h in Headers */,
 				769647BC1CF16C80002D126E /* STPopupPreview.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,6 +121,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				769647CA1CF16CCC002D126E /* PBXTargetDependency */,
 			);
 			name = STPopupPreview;
 			productName = STPopupPreview;
@@ -108,12 +152,28 @@
 			mainGroup = 769647AE1CF16C80002D126E;
 			productRefGroup = 769647B91CF16C80002D126E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 769647C41CF16CC4002D126E /* Products */;
+					ProjectRef = 769647C31CF16CC4002D126E /* STPopup.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				769647B71CF16C80002D126E /* STPopupPreview */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		769647C81CF16CC5002D126E /* STPopup.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = STPopup.framework;
+			remoteRef = 769647C71CF16CC5002D126E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		769647B61CF16C80002D126E /* Resources */ = {
@@ -130,10 +190,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				769648041CF16FB3002D126E /* UIView+STPopupPreview.m in Sources */,
+				769648001CF16F83002D126E /* STPopupPreviewRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		769647CA1CF16CCC002D126E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = STPopup;
+			targetProxy = 769647C91CF16CCC002D126E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		769647BE1CF16C80002D126E /* Debug */ = {
@@ -174,7 +244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -216,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -235,6 +305,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = STPopupPreview/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.sth4.STPopupPreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -251,6 +322,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = STPopupPreview/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.sth4.STPopupPreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -277,6 +349,7 @@
 				769647C21CF16C80002D126E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

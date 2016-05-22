@@ -14,6 +14,5 @@ FOUNDATION_EXPORT double STPopupPreviewVersionNumber;
 //! Project version string for STPopupPreview.
 FOUNDATION_EXPORT const unsigned char STPopupPreviewVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <STPopupPreview/PublicHeader.h>
-
-
+#import <STPopupPreview/STPopupPreviewRecognizer.h>
+#import <STPopupPreview/UIView+STPopupPreview.h>

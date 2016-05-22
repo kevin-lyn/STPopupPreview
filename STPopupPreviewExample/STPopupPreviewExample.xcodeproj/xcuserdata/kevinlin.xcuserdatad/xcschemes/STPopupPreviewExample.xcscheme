@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "769647B71CF16C80002D126E"
-               BuildableName = "STPopupPreview.framework"
-               BlueprintName = "STPopupPreview"
-               ReferencedContainer = "container:STPopupPreview.xcodeproj">
+               BlueprintIdentifier = "769647D41CF16D17002D126E"
+               BuildableName = "STPopupPreviewExample.app"
+               BlueprintName = "STPopupPreviewExample"
+               ReferencedContainer = "container:STPopupPreviewExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "769647D41CF16D17002D126E"
+            BuildableName = "STPopupPreviewExample.app"
+            BlueprintName = "STPopupPreviewExample"
+            ReferencedContainer = "container:STPopupPreviewExample.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -42,15 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "769647B71CF16C80002D126E"
-            BuildableName = "STPopupPreview.framework"
-            BlueprintName = "STPopupPreview"
-            ReferencedContainer = "container:STPopupPreview.xcodeproj">
+            BlueprintIdentifier = "769647D41CF16D17002D126E"
+            BuildableName = "STPopupPreviewExample.app"
+            BlueprintName = "STPopupPreviewExample"
+            ReferencedContainer = "container:STPopupPreviewExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -60,15 +70,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "769647B71CF16C80002D126E"
-            BuildableName = "STPopupPreview.framework"
-            BlueprintName = "STPopupPreview"
-            ReferencedContainer = "container:STPopupPreview.xcodeproj">
+            BlueprintIdentifier = "769647D41CF16D17002D126E"
+            BuildableName = "STPopupPreviewExample.app"
+            BlueprintName = "STPopupPreviewExample"
+            ReferencedContainer = "container:STPopupPreviewExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
