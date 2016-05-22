@@ -11,6 +11,9 @@
 
 @interface UIView (STPopupPreview)
 
+/**
+ The attached preview recognizer.
+ */
 @property (nonatomic, strong) STPopupPreviewRecognizer *popupPreviewRecognizer;
 
 @end

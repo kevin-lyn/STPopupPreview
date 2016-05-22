@@ -301,6 +301,9 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             }
             
             UIViewController *previewViewController = [_delegate previewViewControllerForPopupPreviewRecognizer:self];
+            if (!previewViewController) {
+                break;
+            }
             
             _popupController = [[STPopupController alloc] initWithRootViewController:previewViewController];
             _popupController.containerView.layer.cornerRadius = 10;
