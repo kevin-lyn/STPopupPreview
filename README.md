@@ -23,6 +23,7 @@ pod 'STPopupPreview'
 ```ruby
 github "kevin0571/STPopupPreview"
 ```
+*Don't forget to drag both STPopupPreview.framework and STPopup.framework into linked frameworks.
 ## Usage
 
 ### Import header file

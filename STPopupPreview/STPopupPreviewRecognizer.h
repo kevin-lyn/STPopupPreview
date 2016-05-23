@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <STPopup/STPopup.h>
 
 typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
+    /**
+     Default action in global tint color.
+     */
     STPopupPreviewActionStyleDefault,
+    /**
+     Cancel action will be put at the bottom with bold font.
+     */
     STPopupPreviewActionStyleCancel,
+    /**
+     Destructive action in destructive red tint color.
+     */
     STPopupPreviewActionStyleDestructive
 };
 
@@ -49,8 +57,17 @@ typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
 @end
 
 typedef NS_ENUM(NSUInteger, STPopupPreviewRecognizerState) {
+    /**
+     Before preview view controller is presented or after preview view controller is dismissed.
+     */
     STPopupPreviewRecognizerStateNone,
+    /**
+     Preview view controller is presented but no preview actions are showed.
+     */
     STPopupPreviewRecognizerStatePreviewing,
+    /**
+     Preview actions are showed(either part of or whole of the action sheet). 
+     */
     STPopupPreviewRecognizerStateShowingActions
 };
 

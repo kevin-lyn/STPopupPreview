@@ -7,6 +7,7 @@
 //
 
 #import "STPopupPreviewRecognizer.h"
+#import <STPopup/STPopup.h>
 
 CGFloat const STPopupPreviewActionSheetButtonHeight = 57;
 CGFloat const STPopupPreviewActionSheetSpacing = 10;
@@ -47,6 +48,9 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 
 @end
 
+/**
+ The action sheet for internal use.
+ */
 @interface STPopupPreviewActionSheet : UIView
 
 @property (nonatomic, weak) id<STPopupPreviewActionSheetDelegate> delegate;
@@ -187,6 +191,9 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 
 @end
 
+/**
+ A custom view which draws the arrow indicator.
+ */
 @interface STPopupPreviewArrowView : UIView
 
 @end
