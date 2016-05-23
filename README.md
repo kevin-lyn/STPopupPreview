@@ -40,10 +40,10 @@ if (!cell.popupPreviewRecognizer) {
 ```
 
 ### Implement STPopupPreviewRecognizerDelegate
-```objc
-#pragma mark - STPopupPreviewRecognizerDelegate
 
-// Return the preview view controller
+Return the preview view controller. The preview view controller should have "contentSizeInPopup" set before its "viewDidLoad" called. More about this please read the document of [STPopup](http://github.com/kevin0571/STPopup).
+
+```objc
 - (UIViewController *)previewViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
 {
     if (![popupPreviewRecognizer.view isKindOfClass:[CollectionViewCell class]]) {
@@ -57,14 +57,20 @@ if (!cell.popupPreviewRecognizer) {
     previewViewController.placeholderImage = cell.imageView.image;
     return previewViewController;
 }
+```
 
-// Return a view controller to present the preview view controller. Most of the time it will be the current view controller.
+Return a view controller to present the preview view controller. Most of the time it will be the current view controller.
+
+```objc
 - (UIViewController *)presentingViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
 {
     return self;
 }
+```
 
-// Return the preview actions you want to show when slides up. It can be nil if you don't have any preview actions.
+Return the preview actions you want to show when slides up. It can be nil if you don't have any preview actions.
+
+```objc
 - (NSArray<STPopupPreviewAction *> *)previewActionsForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
 {
     return @[ [STPopupPreviewAction actionWithTitle:@"Like" style:STPopupPreviewActionStyleDefault handler:^(STPopupPreviewAction *action, UIViewController *previewViewController) {
