@@ -10,7 +10,6 @@
 #import "PreviewViewController.h"
 #import "ImageLoader.h"
 #import <STPopupPreview/STPopupPreview.h>
-#import <STPopup/STPopup.h>
 
 @interface CollectionViewCell : UICollectionViewCell
 
