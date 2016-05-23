@@ -42,6 +42,13 @@
     _exampleData = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:path] options:kNilOptions error:NULL];
 }
 
+- (BOOL)isForceTouchAvailable
+{
+    return [self respondsToSelector:@selector(traitCollection)] &&
+            [self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
+            self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+}
+
 #pragma mark - STPopupPreviewRecognizerDelegate
 
 - (UIViewController *)previewViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer
@@ -84,6 +91,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([CollectionViewCell class]) forIndexPath:indexPath];
+    // You may want to enable popup preview recognizer only if force touch is not available by using "isForceTouchAvailable"
     if (!cell.popupPreviewRecognizer) {
         cell.popupPreviewRecognizer = [[STPopupPreviewRecognizer alloc] initWithDelegate:self];
     }
