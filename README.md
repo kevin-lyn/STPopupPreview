@@ -1,4 +1,4 @@
-# STPopupPreview
+# STPopupPreview ![CI Status](https://travis-ci.org/kevin0571/STPopupPreview.svg?branch=master) ![Version](http://img.shields.io/cocoapods/v/STPopupPreview.svg?style=flag) ![License](https://img.shields.io/cocoapods/l/STPopupPreview.svg?style=flag)
 **STPopupPreview** uses long press gesture to enable quick preview of a page on non 3D Touch devices. Preview actions are also supported. This idea is inspired by Instagram. 
 
 It is built on top of of [STPopup](http://github.com/kevin0571/STPopup)(a library provides STPopupController, which works just like UINavigationController in popup style). Both STPopup and STPopupPreview support iOS 7+.
