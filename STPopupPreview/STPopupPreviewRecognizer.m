@@ -295,7 +295,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
     NSAssert(gesture == _longPressGesture || _panGesture == _panGesture, @"Gesture is not expected");
     switch (gesture.state) {
         case UIGestureRecognizerStateBegan: {
-            if (gesture == _panGesture) {
+            if (gesture == _panGesture) { // Reset _startPointY if it's from _panGesture, make sure translationY is correctly calculated
                 _startPointY = [gesture locationInView:_popupController.backgroundView].y - _popupController.containerView.transform.ty;
                 break;
             }
@@ -313,7 +313,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
                 _popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
             }
-            else {
+            else { // Work around for iOS 7
                 _popupController.backgroundView = [UIToolbar new];
             }
             
