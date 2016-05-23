@@ -207,15 +207,15 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGFloat lineWidth = 4;
-    CGFloat shadowRadius = 2;
+    CGFloat lineWidth = 5;
+    CGFloat shadowRadius = 4;
     CGFloat width = rect.size.width - lineWidth - shadowRadius * 2;
     CGFloat height = rect.size.height - lineWidth - shadowRadius * 2;
     CGFloat x = (rect.size.width - width) / 2;
     CGFloat y = (rect.size.height - height) / 2;
     
     CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGContextSetShadowWithColor(context, CGSizeMake(0.0f, 0.0f), shadowRadius, [UIColor colorWithWhite:0 alpha:0.2].CGColor);
+    CGContextSetShadowWithColor(context, CGSizeMake(0.0f, 0.0f), shadowRadius, [UIColor colorWithWhite:0.2 alpha:0.2].CGColor);
     
     CGContextSetLineWidth(context, lineWidth);
     CGContextSetLineCap(context, kCGLineCapRound);
@@ -325,9 +325,9 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 
                 NSArray<STPopupPreviewAction *> *actions = [_delegate previewActionsForPopupPreviewRecognizer:self];
                 if (actions.count) {
-                    CGFloat arrowWidth = 32;
-                    CGFloat arrowHeight = 14;
-                    _arrowView = [[STPopupPreviewArrowView alloc] initWithFrame:CGRectMake((_popupController.backgroundView.frame.size.width - arrowWidth) / 2, _popupController.containerView.frame.origin.y - 25, arrowWidth, arrowHeight)];
+                    CGFloat arrowWidth = 44;
+                    CGFloat arrowHeight = 20;
+                    _arrowView = [[STPopupPreviewArrowView alloc] initWithFrame:CGRectMake((_popupController.backgroundView.frame.size.width - arrowWidth) / 2, _popupController.containerView.frame.origin.y - 35, arrowWidth, arrowHeight)];
                     [_popupController.backgroundView addSubview:_arrowView];
                     _arrowView.alpha = 0;
                     [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
