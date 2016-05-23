@@ -313,6 +313,9 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
                 _popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
             }
+            else {
+                _popupController.backgroundView = [UIToolbar new];
+            }
             
             UIViewController *presentingViewController = [_delegate presentingViewControllerForPopupPreviewRecognizer:self];
             [_popupController presentInViewController:presentingViewController completion:^{
