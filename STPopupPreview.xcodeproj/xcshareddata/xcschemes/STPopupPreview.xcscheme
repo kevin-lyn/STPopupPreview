@@ -20,6 +20,20 @@
                ReferencedContainer = "container:STPopupPreview.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "76D822371C1DB5E400FCF988"
+               BuildableName = "STPopup.framework"
+               BlueprintName = "STPopup"
+               ReferencedContainer = "container:STPopup/STPopup.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -29,6 +43,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "769647B71CF16C80002D126E"
+            BuildableName = "STPopupPreview.framework"
+            BlueprintName = "STPopupPreview"
+            ReferencedContainer = "container:STPopupPreview.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
