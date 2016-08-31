@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "STPopupPreview"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "An alternative peek preview for non 3D Touch devices. Inspired by Instagram."
 
   s.description  = <<-DESC
