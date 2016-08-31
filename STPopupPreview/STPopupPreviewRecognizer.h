@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
     /**
      Default action in global tint color.
@@ -41,7 +43,7 @@ typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
  It should be configured as a popup view controller. (either "contentSizeInPopup" or "landscapeContentSizeInPopup" should be set)
  @see UIViewController+STPopup
  */
-- (UIViewController *)previewViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer;
+- (nullable UIViewController *)previewViewControllerForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer;
 
 /**
  The view controller for presenting the popup.
@@ -87,3 +89,5 @@ typedef NS_ENUM(NSUInteger, STPopupPreviewRecognizerState) {
 - (instancetype)initWithDelegate:(id<STPopupPreviewRecognizerDelegate>)deleagte NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END
