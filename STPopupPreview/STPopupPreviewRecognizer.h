@@ -78,7 +78,7 @@ typedef NS_ENUM(NSUInteger, STPopupPreviewRecognizerState) {
 /**
  The view the preview recognizer is attached to.
  */
-@property (nonatomic, weak, readonly) __kindof UIView *view;
+@property (nullable, nonatomic, weak, readonly) __kindof UIView *view;
 
 /**
  The current state of preview recognizer.

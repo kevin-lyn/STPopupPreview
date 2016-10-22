@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <STPopupPreview/STPopupPreviewRecognizer.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIView (STPopupPreview)
 
 /**
  The attached preview recognizer.
  */
-@property (nonatomic, strong) STPopupPreviewRecognizer *popupPreviewRecognizer;
+@property (nullable, nonatomic, strong) STPopupPreviewRecognizer *popupPreviewRecognizer;
 
 @end
+
+NS_ASSUME_NONNULL_END
