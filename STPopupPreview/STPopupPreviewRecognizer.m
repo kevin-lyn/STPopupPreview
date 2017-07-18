@@ -7,6 +7,8 @@
 //
 
 #import "STPopupPreviewRecognizer.h"
+#import "STPopupController.h"
+#import "STPopupController+STPopupPreview.h"
 #import <STPopup/STPopup.h>
 
 CGFloat const STPopupPreviewActionSheetButtonHeight = 57;
@@ -323,10 +325,14 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             else { // Work around for iOS 7
                 _popupController.backgroundView = [UIToolbar new];
             }
+
+            if( [_delegate respondsToSelector:@selector(configurePopupController:)]) {
+                [_delegate configurePopupController:_popupController];
+            }
             
             UIViewController *presentingViewController = [_delegate presentingViewControllerForPopupPreviewRecognizer:self];
             [_popupController presentInViewController:presentingViewController completion:^{
-                _popupController.containerView.userInteractionEnabled = NO;
+                _popupController.containerView.userInteractionEnabled = _popupController.popupPreviewInteractionEnabled;
                 _state = STPopupPreviewRecognizerStatePreviewing;
                 _startPointY = [gesture locationInView:_popupController.backgroundView].y;
                 
