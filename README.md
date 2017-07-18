@@ -79,6 +79,17 @@ Return the preview actions you want to show when slides up. It can be nil if you
 }
 ```
 
+Enable or disable user interaction of the preview view controller using optional method.
+
+```objc
+- (void)configurePopupController:(STPopupController *)popupController
+{
+      popupController.popupPreviewInteractionEnabled = YES; // Default is NO
+}
+```
+
+
+
 ### Enable STPopupPreview only if 3D Touch is not available
 ```objc
 BOOL isForceTouchAvailable = [self respondsToSelector:@selector(traitCollection)] &&
