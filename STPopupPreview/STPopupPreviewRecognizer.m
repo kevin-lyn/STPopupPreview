@@ -7,9 +7,8 @@
 //
 
 #import "STPopupPreviewRecognizer.h"
-#import "STPopupController.h"
 #import "STPopupController+STPopupPreview.h"
-#import <STPopup/STPopup.h>
+
 
 CGFloat const STPopupPreviewActionSheetButtonHeight = 57;
 CGFloat const STPopupPreviewActionSheetSpacing = 10;

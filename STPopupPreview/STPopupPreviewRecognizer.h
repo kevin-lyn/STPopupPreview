@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <STPopup/STPopup.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,7 +36,6 @@ typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
 @end
 
 @class STPopupPreviewRecognizer;
-@class STPopupController;
 
 @protocol STPopupPreviewRecognizerDelegate <NSObject>
 
