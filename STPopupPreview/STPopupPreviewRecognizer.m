@@ -318,7 +318,10 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             _popupController.hidesCloseButton = YES;
             if (NSClassFromString(@"UIVisualEffectView")) {
                 UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-                _popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+                UIView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+                _popupController.backgroundView = [UIView new];
+                [_popupController.backgroundView addSubview:effectView];
+                effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             }
             else { // Work around for iOS 7
                 _popupController.backgroundView = [UIToolbar new];
