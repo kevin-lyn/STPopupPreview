@@ -316,14 +316,19 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             _popupController.containerView.layer.cornerRadius = 10;
             _popupController.transitionStyle = STPopupTransitionStyleFade;
             _popupController.hidesCloseButton = YES;
-            if (NSClassFromString(@"UIVisualEffectView")) {
+            
+            if([NSArray respondsToSelector:@selector(arrayWithContentsOfURL:error:)]) { //-- ios11
                 UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
                 UIView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
                 _popupController.backgroundView = [UIView new];
                 [_popupController.backgroundView addSubview:effectView];
                 effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            }
-            else { // Work around for iOS 7
+            
+            } else if(NSClassFromString(@"UIVisualEffectView")) { //-- ios8
+                UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+                _popupController.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+            
+            } else { // Work around for iOS 7
                 _popupController.backgroundView = [UIToolbar new];
             }
             
