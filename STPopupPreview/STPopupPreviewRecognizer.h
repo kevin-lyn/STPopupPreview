@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <STPopup/STPopup.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,6 +56,13 @@ typedef NS_ENUM(NSInteger, STPopupPreviewActionStyle) {
  It could be empty if no actions are available for previewing.
  */
 - (NSArray<STPopupPreviewAction *> *)previewActionsForPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer;
+
+
+@optional
+
+- (void) configurePopupController: (STPopupController*) popupController;
+
+
 
 @end
 

@@ -7,7 +7,8 @@
 //
 
 #import "STPopupPreviewRecognizer.h"
-#import <STPopup/STPopup.h>
+#import "STPopupController+STPopupPreview.h"
+
 
 CGFloat const STPopupPreviewActionSheetButtonHeight = 57;
 CGFloat const STPopupPreviewActionSheetSpacing = 10;
@@ -328,10 +329,14 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 _popupController.backgroundView = [UIToolbar new];
                 backgroundContentView = _popupController.backgroundView;
             }
+
+            if( [_delegate respondsToSelector:@selector(configurePopupController:)]) {
+                [_delegate configurePopupController:_popupController];
+            }
             
             UIViewController *presentingViewController = [_delegate presentingViewControllerForPopupPreviewRecognizer:self];
             [_popupController presentInViewController:presentingViewController completion:^{
-                _popupController.containerView.userInteractionEnabled = NO;
+                _popupController.containerView.userInteractionEnabled = _popupController.popupPreviewInteractionEnabled;
                 _state = STPopupPreviewRecognizerStatePreviewing;
                 _startPointY = [gesture locationInView:_popupController.backgroundView].y;
                 

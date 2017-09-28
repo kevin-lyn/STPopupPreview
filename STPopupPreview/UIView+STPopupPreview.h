@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nullable, nonatomic, strong) STPopupPreviewRecognizer *popupPreviewRecognizer;
 
+- (void)setPopupPreviewRecognizer:(STPopupPreviewRecognizer *)popupPreviewRecognizer NS_SWIFT_NAME(popupPreview(recognizer:));
+- (STPopupPreviewRecognizer *)popupPreviewRecognizer NS_SWIFT_NAME(popupPreviewRecognizer());
 @end
 
 NS_ASSUME_NONNULL_END
