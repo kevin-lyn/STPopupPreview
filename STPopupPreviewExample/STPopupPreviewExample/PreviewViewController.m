@@ -43,7 +43,7 @@
     self.contentSizeInPopup = CGSizeMake(contentWidth, contentHeight);
     
     self.avatarImageView.layer.cornerRadius = 16;
-    NSURL *avatarImageURL = [NSURL URLWithString:@"https://igcdn-photos-b-a.akamaihd.net/hphotos-ak-ash/t51.2885-19/10808772_990078594337433_65931114_a.jpg"];
+    NSURL *avatarImageURL = [NSURL URLWithString:@"https://scontent-sin6-1.cdninstagram.com/t51.2885-19/s320x320/21041830_473310829694616_4460312683513643008_a.jpg"];
     if ([ImageLoader cachedImageForURL:avatarImageURL]) {
         self.avatarImageView.image = [ImageLoader cachedImageForURL:avatarImageURL];
     }
