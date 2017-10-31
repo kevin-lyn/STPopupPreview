@@ -340,7 +340,16 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                     CGFloat arrowWidth = 44;
                     CGFloat arrowHeight = 20;
                     _arrowView = [[STPopupPreviewArrowView alloc] initWithFrame:CGRectMake((_popupController.backgroundView.frame.size.width - arrowWidth) / 2, _popupController.containerView.frame.origin.y - 35, arrowWidth, arrowHeight)];
-                    [_popupController.backgroundView addSubview:_arrowView];
+
+                    if([_popupController.backgroundView isKindOfClass:[UIVisualEffectView class]]) {
+                        UIVisualEffectView * effect =_popupController.backgroundView;
+                        [effect.contentView addSubview:_arrowView];
+                    } else {
+                        [_popupController.backgroundView addSubview:_arrowView];
+                    }
+
+
+
                     _arrowView.alpha = 0;
                     [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                         _arrowView.alpha = 1;
@@ -348,7 +357,16 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                     
                     _actionSheet = [[STPopupPreviewActionSheet alloc] initWithActions:actions];
                     _actionSheet.delegate = self;
-                    [_popupController.backgroundView addSubview:_actionSheet];
+
+
+                    if([_popupController.backgroundView isKindOfClass:[UIVisualEffectView class]]) {
+                        UIVisualEffectView * effect =_popupController.backgroundView;
+                        [effect.contentView addSubview:_actionSheet];
+                    } else {
+                        [_popupController.backgroundView addSubview:_actionSheet];
+                    }
+
+
                     [_actionSheet sizeToFit];
                     _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height);
                 }
