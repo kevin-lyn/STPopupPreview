@@ -95,7 +95,7 @@
         cell.popupPreviewRecognizer = [[STPopupPreviewRecognizer alloc] initWithDelegate:self];
     }
     
-    NSDictionary *data = _exampleData[indexPath.item];
+    NSDictionary *data = _exampleData[indexPath.item][@"node"];
     cell.data = data;
     
     NSURL *imageURL = [NSURL URLWithString:data[@"thumbnail_src"]];

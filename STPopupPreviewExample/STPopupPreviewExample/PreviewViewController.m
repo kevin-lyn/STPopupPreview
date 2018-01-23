@@ -54,10 +54,9 @@
     }
     
     self.imageView.image = self.placeholderImage;
-    [ImageLoader loadImageForURL:[NSURL URLWithString:self.data[@"display_src"]] completion:^(UIImage *image) {
+    [ImageLoader loadImageForURL:[NSURL URLWithString:self.data[@"display_url"]] completion:^(UIImage *image) {
         self.imageView.image = image;
     }];
-    self.captionLabel.text = self.data[@"caption"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
