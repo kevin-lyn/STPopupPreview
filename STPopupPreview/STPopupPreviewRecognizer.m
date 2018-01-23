@@ -299,7 +299,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 
 - (void)gestureAction:(UIGestureRecognizer *)gesture
 {
-    NSAssert(gesture == _longPressGesture || _panGesture == _panGesture, @"Gesture is not expected");
+    NSAssert(gesture == _longPressGesture || gesture == _panGesture, @"Gesture is not expected");
     switch (gesture.state) {
         case UIGestureRecognizerStateBegan: {
             if (gesture == _panGesture) { // Reset _startPointY if it's from _panGesture, make sure translationY is correctly calculated
