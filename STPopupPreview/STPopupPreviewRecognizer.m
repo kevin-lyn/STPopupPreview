@@ -134,11 +134,15 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
     self.frame = frame;
     [self layoutIfNeeded];
     
+    CGFloat safeAreaInsetsBottom = 0;
+    if (@available(iOS 11.0, *)) {
+        safeAreaInsetsBottom = self.superview.safeAreaInsets.bottom;
+    }
     if (_bottomContainerView) {
-        frame.size.height = _bottomContainerView.frame.origin.y + _bottomContainerView.frame.size.height + STPopupPreviewActionSheetSpacing;
+        frame.size.height = _bottomContainerView.frame.origin.y + _bottomContainerView.frame.size.height + STPopupPreviewActionSheetSpacing + safeAreaInsetsBottom;
     }
     else {
-        frame.size.height = _topContainerView.frame.origin.y + _topContainerView.frame.size.height + STPopupPreviewActionSheetSpacing;
+        frame.size.height = _topContainerView.frame.origin.y + _topContainerView.frame.size.height + STPopupPreviewActionSheetSpacing + safeAreaInsetsBottom;
     }
     frame.origin = CGPointMake(0, self.superview.frame.size.height - frame.size.height);
     self.frame = frame;
