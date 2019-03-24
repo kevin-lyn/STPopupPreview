@@ -280,7 +280,7 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 
 #pragma mark - Helpers
 
-- (void)dismissWithCompletion:(void(^)())completion
+- (void)dismissWithCompletion:(void(^)(void))completion
 {
     _state = STPopupPreviewRecognizerStateNone;
     [_popupController.backgroundView removeGestureRecognizer:_panGesture];
@@ -289,13 +289,13 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
         if (completion) {
             completion();
         }
-        [_arrowView removeFromSuperview];
-        _arrowView = nil;
-        [_actionSheet removeFromSuperview];
-        _actionSheet = nil;
-        _panGesture = nil;
-        _tapGesture = nil;
-        _popupController = nil;
+        [self->_arrowView removeFromSuperview];
+        self->_arrowView = nil;
+        [self->_actionSheet removeFromSuperview];
+        self->_actionSheet = nil;
+        self->_panGesture = nil;
+        self->_tapGesture = nil;
+        self->_popupController = nil;
     }];
 }
 
@@ -335,32 +335,32 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             
             UIViewController *presentingViewController = [_delegate presentingViewControllerForPopupPreviewRecognizer:self];
             [_popupController presentInViewController:presentingViewController completion:^{
-                _popupController.containerView.userInteractionEnabled = NO;
-                _state = STPopupPreviewRecognizerStatePreviewing;
-                _startPointY = [gesture locationInView:_popupController.backgroundView].y;
+                self->_popupController.containerView.userInteractionEnabled = NO;
+                self->_state = STPopupPreviewRecognizerStatePreviewing;
+                self->_startPointY = [gesture locationInView:self->_popupController.backgroundView].y;
                 
-                NSArray<STPopupPreviewAction *> *actions = [_delegate previewActionsForPopupPreviewRecognizer:self];
+                NSArray<STPopupPreviewAction *> *actions = [self->_delegate previewActionsForPopupPreviewRecognizer:self];
                 if (actions.count) {
                     CGFloat arrowWidth = 44;
                     CGFloat arrowHeight = 20;
-                    _arrowView = [[STPopupPreviewArrowView alloc] initWithFrame:CGRectMake((_popupController.backgroundView.frame.size.width - arrowWidth) / 2, _popupController.containerView.frame.origin.y - 35, arrowWidth, arrowHeight)];
-                    [backgroundContentView addSubview:_arrowView];
-                    _arrowView.alpha = 0;
+                    self->_arrowView = [[STPopupPreviewArrowView alloc] initWithFrame:CGRectMake((self->_popupController.backgroundView.frame.size.width - arrowWidth) / 2, self->_popupController.containerView.frame.origin.y - 35, arrowWidth, arrowHeight)];
+                    [backgroundContentView addSubview:self->_arrowView];
+                    self->_arrowView.alpha = 0;
                     [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                        _arrowView.alpha = 1;
+                        self->_arrowView.alpha = 1;
                     } completion:nil];
                     
-                    _actionSheet = [[STPopupPreviewActionSheet alloc] initWithActions:actions];
-                    _actionSheet.delegate = self;
-                    [backgroundContentView addSubview:_actionSheet];
-                    [_actionSheet sizeToFit];
-                    _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height);
+                    self->_actionSheet = [[STPopupPreviewActionSheet alloc] initWithActions:actions];
+                    self->_actionSheet.delegate = self;
+                    [backgroundContentView addSubview:self->_actionSheet];
+                    [self->_actionSheet sizeToFit];
+                    self->_actionSheet.transform = CGAffineTransformMakeTranslation(0, self->_actionSheet.frame.size.height);
                 }
                 
-                _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(gestureAction:)];
-                [_popupController.backgroundView addGestureRecognizer:_panGesture];
-                _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(containerViewDidTap)];
-                [_popupController.backgroundView addGestureRecognizer:_tapGesture];
+                self->_panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(gestureAction:)];
+                [self->_popupController.backgroundView addGestureRecognizer:self->_panGesture];
+                self->_tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(containerViewDidTap)];
+                [self->_popupController.backgroundView addGestureRecognizer:self->_tapGesture];
             }];
         }
             break;
@@ -377,17 +377,17 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             
             if (-translationY >= STPopupPreviewShowActionsOffset) { // Start showing action sheet
                 [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    _arrowView.alpha = 0;
+                    self->_arrowView.alpha = 0;
                 } completion:nil];
                 
                 CGFloat availableHeight = _popupController.backgroundView.frame.size.height - _popupController.containerView.frame.origin.y - _popupController.containerView.frame.size.height;
                 if (_state != STPopupPreviewRecognizerStateShowingActions) {
                     [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                        if (availableHeight >= _actionSheet.frame.size.height) {
-                            _actionSheet.transform = CGAffineTransformIdentity;
+                        if (availableHeight >= self->_actionSheet.frame.size.height) {
+                            self->_actionSheet.transform = CGAffineTransformIdentity;
                         }
                         else {
-                            _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height - availableHeight);
+                            self->_actionSheet.transform = CGAffineTransformMakeTranslation(0, self->_actionSheet.frame.size.height - availableHeight);
                         }
                     } completion:nil];
                 }
@@ -403,8 +403,8 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
             }
             else { // Dismiss action sheet
                 [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    _arrowView.alpha = 1;
-                    _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height);
+                    self->_arrowView.alpha = 1;
+                    self->_actionSheet.transform = CGAffineTransformMakeTranslation(0, self->_actionSheet.frame.size.height);
                 } completion:nil];
                 _state = STPopupPreviewRecognizerStatePreviewing;
             }
@@ -418,13 +418,13 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
                 CGFloat translationY = availableHeight - _popupController.containerView.frame.size.height - (_popupController.backgroundView.frame.size.height - _popupController.containerView.frame.size.height) / 2;
                 [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                     if (translationY < 0) {
-                        _popupController.containerView.transform = CGAffineTransformMakeTranslation(0, translationY);
+                        self->_popupController.containerView.transform = CGAffineTransformMakeTranslation(0, translationY);
                     }
                     else {
-                        _popupController.containerView.transform = CGAffineTransformIdentity;
+                        self->_popupController.containerView.transform = CGAffineTransformIdentity;
                     }
-                    _arrowView.transform = _popupController.containerView.transform;
-                    _actionSheet.transform = CGAffineTransformIdentity;
+                    self->_arrowView.transform = self->_popupController.containerView.transform;
+                    self->_actionSheet.transform = CGAffineTransformIdentity;
                 } completion:nil];
             }
             else {
@@ -447,12 +447,12 @@ CGFloat const STPopupPreviewShowActionsOffset = 30;
 - (void)popupPreviewActionSheet:(STPopupPreviewActionSheet *)actionSheet didSelectAction:(STPopupPreviewAction *)action
 {
     [UIView animateWithDuration:0.35 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _popupController.containerView.transform = CGAffineTransformMakeTranslation(0, -_popupController.containerView.frame.size.height - (_popupController.backgroundView.frame.size.height - _popupController.containerView.frame.size.height) / 2);
-        _actionSheet.transform = CGAffineTransformMakeTranslation(0, _actionSheet.frame.size.height);
+        self->_popupController.containerView.transform = CGAffineTransformMakeTranslation(0, -self->_popupController.containerView.frame.size.height - (self->_popupController.backgroundView.frame.size.height - self->_popupController.containerView.frame.size.height) / 2);
+        self->_actionSheet.transform = CGAffineTransformMakeTranslation(0, self->_actionSheet.frame.size.height);
     } completion:^(BOOL finished) {
         [self dismissWithCompletion:^{
             if (action.handler) {
-                action.handler(action, _popupController.topViewController);
+                action.handler(action, self->_popupController.topViewController);
             }
         }];
     }];
