@@ -98,7 +98,7 @@
     NSDictionary *data = _exampleData[indexPath.item][@"node"];
     cell.data = data;
     
-    NSURL *imageURL = [NSURL URLWithString:data[@"thumbnail_src"]];
+    NSURL *imageURL = [NSURL URLWithString:data[@"display_url"]];
     if ([ImageLoader cachedImageForURL:imageURL]) {
         cell.imageView.image = [ImageLoader cachedImageForURL:imageURL];
     }

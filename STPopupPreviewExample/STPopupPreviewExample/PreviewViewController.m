@@ -43,7 +43,7 @@
     self.contentSizeInPopup = CGSizeMake(contentWidth, contentHeight);
     
     self.avatarImageView.layer.cornerRadius = 16;
-    NSURL *avatarImageURL = [NSURL URLWithString:@"https://scontent-sin6-1.cdninstagram.com/t51.2885-19/s320x320/21041830_473310829694616_4460312683513643008_a.jpg"];
+    NSURL *avatarImageURL = [NSURL URLWithString:@"https://instagram.flhr2-1.fna.fbcdn.net/vp/ff1bd2dbfbcef9536b84b1623b43312c/5D1BC2EA/t51.2885-19/s320x320/53241807_254795148730661_6781962409327198208_n.jpg?_nc_ht=instagram.flhr2-1.fna.fbcdn.net"];
     if ([ImageLoader cachedImageForURL:avatarImageURL]) {
         self.avatarImageView.image = [ImageLoader cachedImageForURL:avatarImageURL];
     }
@@ -57,6 +57,8 @@
     [ImageLoader loadImageForURL:[NSURL URLWithString:self.data[@"display_url"]] completion:^(UIImage *image) {
         self.imageView.image = image;
     }];
+    
+    self.captionLabel.text = @"Instagram Photo";
 }
 
 - (void)viewWillAppear:(BOOL)animated
