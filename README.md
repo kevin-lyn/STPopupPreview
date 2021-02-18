@@ -4,7 +4,6 @@
 It is built on top of of [STPopup](http://github.com/kevin0571/STPopup)(a library provides STPopupController, which works just like UINavigationController in popup style). Both STPopup and STPopupPreview support iOS 7+.
 
 ## Demo
-A simple demo shows images from my [Instagram](https://www.instagram.com/kevin0571/)
 
 ![STPopupPreviewDemo](https://cloud.githubusercontent.com/assets/1491282/15470641/4cf17556-2124-11e6-885b-d2242de06974.gif)
 
